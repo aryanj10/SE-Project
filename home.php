@@ -10,15 +10,17 @@
     </head>
     <body>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.php">DBMS Project</a>
+                <a class="navbar-brand" href="#">DBMS Project</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                     
-                    <a class="nav-item nav-link" href="new.php">Parking</a>
+                    <!--<a class="nav-item nav-link" href="new.php">Current</a>-->
+                    <a class="nav-item nav-link" href="current.php">Current</a>
+                    <a class="nav-item nav-link" href="all.php">All</a>
+                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
                     </div>
                 </div>
                 <div class="nav navbar-nav navbar-right">
@@ -41,17 +43,28 @@
                         <input class="form-control" id="carOwnnum" name="carOwnnum" type="value">
                     </div>
                     <div class="form-group">
-                        <label for="carEntry">Car Entry Time</label>
-                        <input class="form-control" id="carEntry" name="carEntry" value="">
+                        <label for="carEntryTime">Car Entry Time</label>
+                        <input class="form-control" id="carEntryTime" name="carEntryTime" value="">
                         <script>
-                                var d= new Date();
-                                document.getElementById("carEntry").setAttribute("value", d);
+                                var current= new Date;
+                                var currenttime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+                                document.getElementById("carEntryTime").setAttribute("value",currenttime);
                             
                         </script>
                     </div>
                     <div class="form-group">
-                        <label for="carSpotnum">Parking Spot</label>
-                        <input class="form-control" id="carSpotnum" name="carSpotnum" type="value">
+                        <label for="carEntryDate">Car Entry Date</label>
+                        <input class="form-control" id="carEntryDate" name="carEntryDate" value="">
+                        <script>
+                                month=current.getMonth()+1
+                                var currentDate = current.getFullYear() + "-" + month + "-" + current.getDate();
+                                document.getElementById("carEntryDate").setAttribute("value", currentDate);
+                            
+                        </script>
+                    </div>
+                    <div class="form-group">
+                        <label for="parkingSpot">Parking Spot</label>
+                        <input class="form-control" id="parkingSpot" name="parkingSpot" type="value">
                     </div>
                     <button class="btn btn-success" type="submit">Admit</button>
                 </form>

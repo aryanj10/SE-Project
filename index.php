@@ -47,7 +47,7 @@
     					printf("Connect failed: %s\n", mysqli_connect_error());
     					exit();
 					}
-					mysqli_select_db($link,"parking");
+					mysqli_select_db($link,"parkingdb");
 					$results=mysqli_query($link,"select * from usertable where Username='$username' and Password='$password'") or die("failed to connect".mysqli_connect_error());
 					$row=mysqli_fetch_array($results);
 					if ($row['Username'] == $username && $row['Password'] == $password) {
@@ -104,7 +104,7 @@
 					echo "Password's don't match";
 				else if($password1 == $password2)
 				{
-					mysqli_select_db($link,"parking");
+					mysqli_select_db($link,"parkingdb");
 					$results=mysqli_query($link,"insert into usertable(Username,Password) values('$usernameSub','$password1')") or die("failed to connect".mysqli_connect_error());
 					header('localhost: http://localhost/DBMS-Project/index.php');
 					echo "Data Stored" ;

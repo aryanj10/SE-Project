@@ -18,7 +18,8 @@
                     <div class="navbar-nav">
                     <a class="nav-item nav-link" href="home.php">Home </a>
                     
-                    <a class="nav-item nav-link active" href="#">Current<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link " href="current.php">Current</a>
+                    <a class="nav-item nav-link active" href="#">All<span class="sr-only">(current)</span></a>
                     </div>
                 </div>
                 <div class="nav navbar-nav navbar-right">
@@ -35,6 +36,8 @@
                     <th>Car Owner Number</th>
                     <th>Car Entry Time</th>
                     <th>Car Entry Date</th>
+                    <th>Car Exit Time</th>
+                    <th>Fee</th>
                     <th>Parking Spot</th>
                 </tr>
             </thead>
@@ -51,25 +54,25 @@
                     die("Connection Failed:" . $conn->connect_error);
                 }
 
-                $sql ="SELECT * FROM park";
+                $sql ="SELECT carNo,carOwnName,carOwnNum,carEntryTime,carEntryDate,carExitTime,parkingSpot,checkedOut,fee FROM vehicle  JOIN timeTrack ON vehicle.carNo= timeTrack.carNoTT JOIN parkSpace ON parkSpace.carNoPS=timeTrack.carNoTT JOIN charge ON charge.carNoC=timeTrack.carNoTT ";
                 $result = $conn->query($sql);
-/*                $try=$result->fetch_assoc();
-                if($try['carOwnName']='XYZ'){
-                    echo $try['carOwnName'];
-                }*/
                 if($result->num_rows>0){
                     while($row = $result->fetch_assoc()){
+                        if($row['checkedOut']==1){
                         echo "
                         <tr>
                             <td>" .$row['carNo']."</td>
                             <td>".$row['carOwnName']."</td>
-                            <td>".$row['carOwnnum']."</td>
+                            <td>".$row['carOwnNum']."</td>
                             <td>".$row['carEntryTime']."</td>
                             <td>".$row['carEntryDate']."</td>
+                            <td>".$row['carExitTime']."</td>
+                            <td>".$row['fee']."</td>
                             <td>".$row['parkingSpot']."</td>
                         </tr>";
                     }
                 }
+            }
             ?>
             </tbody>
     

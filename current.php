@@ -17,7 +17,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                     <a class="nav-item nav-link" href="home.php">Home </a>
-                    
+                    <a class="nav-item nav-link" href="all.php">All</a>
                     <a class="nav-item nav-link active" href="#">Current<span class="sr-only">(current)</span></a>
                     </div>
                 </div>
@@ -36,6 +36,7 @@
                     <th>Car Entry Time</th>
                     <th>Car Entry Date</th>
                     <th>Parking Spot</th>
+                    <th>Checked Out</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,25 +52,27 @@
                     die("Connection Failed:" . $conn->connect_error);
                 }
 
-                $sql ="SELECT * FROM park";
+                $sql ="SELECT carNo,carOwnName,carOwnNum,carEntryTime,carEntryDate,carExitTime,parkingSpot,checkedOut FROM vehicle  JOIN timeTrack ON vehicle.carNo= timeTrack.carNoTT JOIN parkSpace ON parkSpace.carNoPS=timeTrack.carNoTT";
                 $result = $conn->query($sql);
-/*                $try=$result->fetch_assoc();
-                if($try['carOwnName']='XYZ'){
-                    echo $try['carOwnName'];
-                }*/
                 if($result->num_rows>0){
                     while($row = $result->fetch_assoc()){
                         echo "
                         <tr>
                             <td>" .$row['carNo']."</td>
                             <td>".$row['carOwnName']."</td>
-                            <td>".$row['carOwnnum']."</td>
+                            <td>".$row['carOwnNum']."</td>
                             <td>".$row['carEntryTime']."</td>
                             <td>".$row['carEntryDate']."</td>
-                            <td>".$row['parkingSpot']."</td>
+                            <td>".$row['parkingSpot']."</td>";
+                            if($row['checkedOut']==1){
+                               echo "<td>".$row['carExitTime']."</td></tr>";
+                            }
+                            else{
+                            echo "<td><a href=check-out.php?carNo=".$row['carNo'].">Check out</td>
                         </tr>";
                     }
                 }
+            }
             ?>
             </tbody>
     
